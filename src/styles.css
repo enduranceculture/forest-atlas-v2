@@ -340,6 +340,14 @@
   .map-action-buttons {
     bottom: calc(var(--sheet-offset, 22vh) + 12px) !important;
   }
+  /* Keep the PWA status chip and update toast clear of the bottom sheet on mobile. */
+  .pwa-status-chip {
+    bottom: calc(var(--sheet-offset, 22vh) + 12px) !important;
+    top: auto !important;
+  }
+  .pwa-update-toast {
+    bottom: calc(var(--sheet-offset, 22vh) + 12px) !important;
+  }
 }
 
 /* Motion — restrained, and honor prefers-reduced-motion. */
