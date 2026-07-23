@@ -6,8 +6,13 @@
 
 /*
  * Forest Atlas · West — design system.
- * Modern natural-history field guide. Dark spruce ground, bone type,
- * mineral gray structure, muted lichen accent, restrained ember CTAs.
+ * ART DIRECTION REMIX ("Sun Valley Poster"): warm cream-paper ground,
+ * warm charcoal ink, vermilion frame + accent, cobalt waterways,
+ * hachure-gray terrain, pine/sage forest, restrained mustard.
+ * Legacy brand tokens (--spruce*, --bone*, --mineral*, --ember*, --lichen*)
+ * are preserved as aliases so downstream utility classes keep working
+ * — every semantic slot below is remapped to the paper palette so the
+ * app transforms visually with no per-component color rewrites.
  * All colors in oklch.
  */
 
@@ -23,6 +28,7 @@
   --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Fraunces", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Big Shoulders Display", "Big Shoulders", "Fraunces", ui-serif, Georgia, serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -58,7 +64,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Forest Atlas brand tokens */
+  /* Legacy brand-name tokens (kept for utility-class compatibility) */
   --color-spruce: var(--spruce);
   --color-spruce-deep: var(--spruce-deep);
   --color-spruce-soft: var(--spruce-soft);
@@ -69,6 +75,23 @@
   --color-lichen: var(--lichen);
   --color-ember: var(--ember);
   --color-ember-soft: var(--ember-soft);
+
+  /* Sun Valley Poster tokens (canonical names for new components) */
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-paper-shade: var(--paper-shade);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-mid: var(--ink-mid);
+  --color-vermilion: var(--vermilion);
+  --color-vermilion-deep: var(--vermilion-deep);
+  --color-vermilion-soft: var(--vermilion-soft);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-deep: var(--cobalt-deep);
+  --color-hachure: var(--hachure);
+  --color-pine: var(--pine);
+  --color-sage: var(--sage);
+  --color-mustard: var(--mustard);
 
   /* 9-class forest density ramp (pale → deep old-growth) */
   --color-density-1: var(--density-1);
@@ -83,64 +106,83 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.125rem; /* 2px — restrained, print-like */
 
-  /* Brand ramp */
-  --spruce-deep: oklch(0.16 0.018 160);
-  --spruce: oklch(0.20 0.020 160);
-  --spruce-soft: oklch(0.26 0.022 160);
-  --bone: oklch(0.955 0.012 85);
-  --bone-dim: oklch(0.86 0.014 85);
-  --mineral: oklch(0.62 0.010 240);
-  --mineral-soft: oklch(0.42 0.012 220);
-  --lichen: oklch(0.72 0.055 135);
-  --ember: oklch(0.68 0.155 45);
-  --ember-soft: oklch(0.78 0.100 55);
+  /* Sun Valley Poster palette */
+  --paper:        oklch(0.955 0.020 82);
+  --paper-deep:   oklch(0.910 0.028 78);
+  --paper-shade:  oklch(0.865 0.034 76);
+  --ink:          oklch(0.220 0.012 60);
+  --ink-mid:      oklch(0.400 0.010 60);
+  --ink-soft:     oklch(0.520 0.008 60);
+  --vermilion:      oklch(0.600 0.198 34);
+  --vermilion-deep: oklch(0.500 0.200 32);
+  --vermilion-soft: oklch(0.660 0.170 36);
+  --cobalt:       oklch(0.440 0.150 258);
+  --cobalt-deep:  oklch(0.360 0.150 258);
+  --hachure:      oklch(0.550 0.008 60);
+  --pine:         oklch(0.320 0.055 155);
+  --sage:         oklch(0.680 0.045 145);
+  --mustard:      oklch(0.780 0.130 85);
 
-  /* 9-step forest density (perceptual green ramp on dark ground) */
-  --density-1: oklch(0.34 0.028 145);
-  --density-2: oklch(0.38 0.038 145);
-  --density-3: oklch(0.42 0.048 145);
-  --density-4: oklch(0.46 0.058 145);
-  --density-5: oklch(0.50 0.070 145);
-  --density-6: oklch(0.54 0.082 148);
-  --density-7: oklch(0.58 0.092 150);
-  --density-8: oklch(0.62 0.100 152);
-  --density-9: oklch(0.68 0.110 155);
+  /* Legacy brand tokens remapped onto the paper palette so every
+   * existing bg-spruce / text-bone / border-ember class re-renders
+   * onto the new direction with no JSX change. */
+  --spruce-deep:  var(--paper);          /* app background */
+  --spruce:       var(--paper-deep);     /* panel background */
+  --spruce-soft:  var(--paper-shade);    /* inset / raised */
+  --bone:         var(--ink);            /* primary text */
+  --bone-dim:     var(--ink-mid);        /* secondary text */
+  --mineral:      var(--ink-soft);       /* metadata / meta labels */
+  --mineral-soft: var(--ink-soft);
+  --lichen:       var(--cobalt);         /* info accent (was moss green) */
+  --ember:        var(--vermilion);      /* selection / CTA */
+  --ember-soft:   var(--vermilion-deep); /* hover / pressed */
 
-  /* Semantic mapping — dark by default (atlas is inherently a dark canvas) */
-  --background: var(--spruce-deep);
-  --foreground: var(--bone);
-  --card: var(--spruce);
-  --card-foreground: var(--bone);
-  --popover: var(--spruce);
-  --popover-foreground: var(--bone);
-  --primary: var(--ember);
-  --primary-foreground: oklch(0.15 0.02 45);
-  --secondary: var(--spruce-soft);
-  --secondary-foreground: var(--bone);
-  --muted: var(--spruce-soft);
-  --muted-foreground: var(--mineral);
-  --accent: var(--lichen);
-  --accent-foreground: var(--spruce-deep);
-  --destructive: oklch(0.62 0.20 25);
-  --destructive-foreground: var(--bone);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: var(--ember);
+  /* 9-step forest density (pale sage → deep pine, on cream) */
+  --density-1: oklch(0.895 0.028 130);
+  --density-2: oklch(0.845 0.038 135);
+  --density-3: oklch(0.780 0.050 140);
+  --density-4: oklch(0.700 0.062 145);
+  --density-5: oklch(0.615 0.070 148);
+  --density-6: oklch(0.535 0.075 150);
+  --density-7: oklch(0.465 0.078 152);
+  --density-8: oklch(0.395 0.078 154);
+  --density-9: oklch(0.325 0.075 156);
+
+  /* Semantic mapping — light paper by default */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper-deep);
+  --card-foreground: var(--ink);
+  --popover: var(--paper-deep);
+  --popover-foreground: var(--ink);
+  --primary: var(--vermilion);
+  --primary-foreground: var(--paper);
+  --secondary: var(--paper-shade);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-shade);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--cobalt);
+  --accent-foreground: var(--paper);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: var(--paper);
+  --border: oklch(0 0 0 / 12%);
+  --input: oklch(0 0 0 / 14%);
+  --ring: var(--vermilion);
   --chart-1: var(--density-3);
   --chart-2: var(--density-5);
   --chart-3: var(--density-7);
   --chart-4: var(--density-9);
-  --chart-5: var(--ember);
-  --sidebar: var(--spruce);
-  --sidebar-foreground: var(--bone);
-  --sidebar-primary: var(--ember);
-  --sidebar-primary-foreground: oklch(0.15 0.02 45);
-  --sidebar-accent: var(--spruce-soft);
-  --sidebar-accent-foreground: var(--bone);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: var(--ember);
+  --chart-5: var(--vermilion);
+  --sidebar: var(--paper-deep);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--vermilion);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: var(--paper-shade);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: oklch(0 0 0 / 12%);
+  --sidebar-ring: var(--vermilion);
 }
 
 @layer base {
@@ -155,11 +197,22 @@
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Base paper texture — extremely subtle, one static SVG turbulence
+     * blended over the fill. Kept as a data-URI so no network + no cache. */
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.15  0 0 0 0 0.10  0 0 0 0 0.06  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat: repeat;
+    background-size: 240px 240px;
   }
 
   h1, h2, h3 {
     font-family: var(--font-serif);
     letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--vermilion) 30%, transparent);
+    color: var(--ink);
   }
 }
 
@@ -174,34 +227,108 @@
   font-feature-settings: "tnum";
 }
 
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* ---------------------------------------------------------------------------
+ * Sun Valley Poster primitives — double rules, clipped corners, print offset.
+ * ------------------------------------------------------------------------- */
+@utility rule-vermilion {
+  border-color: var(--vermilion);
+}
+
+@utility clip-notch {
+  clip-path: polygon(
+    10px 0, calc(100% - 10px) 0, 100% 10px,
+    100% calc(100% - 10px), calc(100% - 10px) 100%,
+    10px 100%, 0 calc(100% - 10px), 0 10px
+  );
+}
+
+@utility print-offset {
+  box-shadow: 2px 2px 0 0 var(--vermilion);
+}
+
+@utility print-offset-ink {
+  box-shadow: 2px 2px 0 0 color-mix(in oklab, var(--ink) 78%, transparent);
+}
+
+@utility ink-hairline {
+  border: 1px solid color-mix(in oklab, var(--ink) 55%, transparent);
+}
+
+@utility double-rule-x {
+  border-top: 1px solid var(--vermilion);
+  border-bottom: 1px solid var(--vermilion);
+  box-shadow:
+    inset 0 3px 0 0 var(--paper),
+    inset 0 4px 0 0 var(--vermilion),
+    inset 0 -3px 0 0 var(--paper),
+    inset 0 -4px 0 0 var(--vermilion);
+}
+
+/* Vintage placard treatment — used for labels on the poster map + panels */
+@utility placard {
+  background: var(--paper);
+  border: 1.5px solid var(--vermilion);
+  box-shadow: 2px 2px 0 0 var(--vermilion);
+  color: var(--ink);
+}
+
 /* ---------------------------------------------------------------------------
  * Leaflet overrides — Forest Atlas
- * Replace default browser focus outlines on markers with our ember focus ring,
- * keep attribution/scale legible over both dark and light basemaps, and let
- * the mobile bottom sheet push attribution + scale above its top edge.
+ * Sun Valley Poster: vermilion focus ring, cream attribution plate,
+ * gentle sepia-shift over raster tiles so third-party basemaps sit
+ * in the paper palette without swapping providers.
  * ------------------------------------------------------------------------- */
+.leaflet-container {
+  background: var(--paper) !important;
+}
+/* Warm the raster tiles toward the paper palette. */
+.leaflet-container .leaflet-tile-pane {
+  filter: sepia(0.22) saturate(0.82) hue-rotate(-6deg) brightness(1.03) contrast(0.96);
+}
 .leaflet-container a.leaflet-popup-close-button:focus,
 .leaflet-container .leaflet-marker-icon:focus,
 .leaflet-container .leaflet-marker-icon:focus-visible {
   outline: none !important;
-  box-shadow: 0 0 0 2px var(--spruce-deep), 0 0 0 4px var(--ember) !important;
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--vermilion) !important;
   border-radius: 9999px;
 }
 .leaflet-container .leaflet-control-attribution {
-  background: color-mix(in oklab, var(--spruce-deep) 78%, transparent);
-  color: var(--bone-dim);
+  background: color-mix(in oklab, var(--paper) 88%, transparent);
+  color: var(--ink-soft);
   padding: 2px 6px;
-  border-radius: 6px 0 0 0;
+  border-radius: 0;
+  border: 1px solid var(--vermilion);
+  border-right: 0;
+  border-bottom: 0;
   font-family: var(--font-mono);
   font-size: 10px;
 }
 .leaflet-container .leaflet-control-attribution a {
-  color: var(--ember-soft);
+  color: var(--vermilion);
 }
 .leaflet-container .leaflet-control-scale-line {
-  background: color-mix(in oklab, var(--spruce-deep) 78%, transparent);
-  color: var(--bone);
-  border-color: color-mix(in oklab, var(--bone) 45%, transparent);
+  background: color-mix(in oklab, var(--paper) 88%, transparent);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-top: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+.leaflet-container .leaflet-control-zoom a {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--ink) !important;
+  border-radius: 0 !important;
+}
+.leaflet-container .leaflet-control-zoom a:hover {
+  background: var(--vermilion) !important;
+  color: var(--paper) !important;
 }
 /* Mobile sheet-aware offset for bottom-left/right leaflet controls.
  * `--sheet-offset` is set inline on the map wrapper from the current snap. */
@@ -212,5 +339,15 @@
   }
   .map-action-buttons {
     bottom: calc(var(--sheet-offset, 22vh) + 12px) !important;
+  }
+}
+
+/* Motion — restrained, and honor prefers-reduced-motion. */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
