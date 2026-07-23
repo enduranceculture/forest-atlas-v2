@@ -3,14 +3,41 @@ import { Link } from "@tanstack/react-router";
 import type { RegionCollection, RegionFeature } from "@/data/schema";
 import { WESTERN_STATES } from "@/data/western/states";
 import { WESTERN_CITIES } from "@/data/western/cities";
+import {
+  DECORATIVE_RIVERS,
+  DECORATIVE_LAKES,
+} from "@/data/western/decorative-waters";
 import { densityColor } from "@/data/western/density";
 import { project, ringToPath, VIEW_H, VIEW_W } from "@/lib/projection";
+import { AtlasSvgPatterns } from "@/components/atlas/HachurePattern";
+import { IconPine, IconElk, IconTent, IconLookout, IconBear } from "@/components/atlas/FieldIcons";
 
 type Props = {
   regions: RegionCollection;
   selectedId: string | null;
   onSelect: (r: RegionFeature | null) => void;
 };
+
+// Small handpicked field-illustration scatter — sparse, not decorative
+// clutter. Positioned in geographic space and projected. Toggled off on
+// narrow viewports via container query on the parent.
+const FIELD_ILLUSTRATIONS: Array<{
+  id: string;
+  lon: number;
+  lat: number;
+  el: "pine" | "elk" | "tent" | "lookout" | "bear";
+}> = [
+  { id: "olympic-elk", lon: -123.9, lat: 47.9, el: "elk" },
+  { id: "cascades-pine", lon: -121.6, lat: 46.7, el: "pine" },
+  { id: "sierra-lookout", lon: -119.0, lat: 37.4, el: "lookout" },
+  { id: "central-idaho-tent", lon: -115.1, lat: 45.0, el: "tent" },
+  { id: "gye-bear", lon: -110.3, lat: 44.5, el: "bear" },
+  { id: "wallowa-pine", lon: -117.4, lat: 45.3, el: "pine" },
+  { id: "uintas-pine", lon: -110.5, lat: 40.75, el: "pine" },
+  { id: "sanjuan-pine", lon: -107.4, lat: 37.6, el: "pine" },
+  { id: "coast-range-pine", lon: -123.9, lat: 44.5, el: "pine" },
+  { id: "redwoods-elk", lon: -124.0, lat: 40.5, el: "elk" },
+];
 
 function WesternAtlasMapImpl({ regions, selectedId, onSelect }: Props) {
   const stateShapes = useMemo(() => WESTERN_STATES.map((s) => ({ ...s, d: ringToPath(s.ring) })), []);
@@ -32,89 +59,135 @@ function WesternAtlasMapImpl({ regions, selectedId, onSelect }: Props) {
   );
   const cityPoints = useMemo(() => WESTERN_CITIES.map((c) => ({ c, ...project(c.lon, c.lat) })), []);
   const idaho = stateShapes.find((s) => s.code === "ID");
-  const idahoLabel = idaho ? project(-114.6, 44.8) : { x: 0, y: 0 };
+  const idahoLabel = idaho ? project(-114.6, 44.9) : { x: 0, y: 0 };
+
+  const riverPaths = useMemo(
+    () =>
+      DECORATIVE_RIVERS.map((r) => ({
+        id: r.id,
+        d: r.coordinates
+          .map(([lon, lat], i) => {
+            const p = project(lon, lat);
+            return `${i === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`;
+          })
+          .join(" "),
+      })),
+    [],
+  );
+  const lakePoints = useMemo(
+    () =>
+      DECORATIVE_LAKES.map((l) => ({
+        id: l.id,
+        ...project(l.center[0], l.center[1]),
+        // Convert coarse "degree radius" to viewport units by projecting an
+        // offset point and taking the distance — good enough for a poster.
+        r: (() => {
+          const a = project(l.center[0], l.center[1]);
+          const b = project(l.center[0] + l.radius, l.center[1]);
+          return Math.max(3, Math.abs(b.x - a.x));
+        })(),
+      })),
+    [],
+  );
+  const illustrations = useMemo(
+    () => FIELD_ILLUSTRATIONS.map((f) => ({ ...f, ...project(f.lon, f.lat) })),
+    [],
+  );
 
   return (
-    <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="h-full w-full" role="img" aria-label="Map of mature and old-growth forest regions across the American West">
-      <defs>
-        <linearGradient id="atlasFade" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="var(--spruce)" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="var(--spruce-deep)" stopOpacity="1" />
-        </linearGradient>
-        <pattern id="mapTopo" width="60" height="60" patternUnits="userSpaceOnUse">
-          <path d="M -6 20 Q 15 6 30 20 T 66 20 M -6 40 Q 15 26 30 40 T 66 40" fill="none" stroke="var(--lichen)" strokeOpacity="0.08" strokeWidth="0.6" />
-        </pattern>
-        <filter id="regionGlow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="2.2" result="glow" />
-          <feMerge>
-            <feMergeNode in="glow" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
+    <svg
+      viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+      className="h-full w-full"
+      role="img"
+      aria-label="Editorial poster map of mature and old-growth forest regions across the American West. Idaho highlighted in vermilion."
+    >
+      <AtlasSvgPatterns />
 
-      <rect width={VIEW_W} height={VIEW_H} fill="url(#atlasFade)" />
-      <rect width={VIEW_W} height={VIEW_H} fill="url(#mapTopo)" />
+      {/* Paper ground */}
+      <rect width={VIEW_W} height={VIEW_H} fill="var(--paper)" />
+      {/* Faint universal hachure wash for the "background terrain" feel */}
+      <rect width={VIEW_W} height={VIEW_H} fill="url(#hachureMountain)" opacity="0.10" />
 
+      {/* State fills — cream with hairline ink border, slight paper-shade fill */}
       <g>
         {stateShapes.map((s) => (
-          <path key={s.code} d={s.d} fill="var(--spruce-soft)" fillOpacity="0.35" stroke="var(--mineral-soft)" strokeOpacity="0.6" strokeWidth="0.8" />
-        ))}
-      </g>
-
-      {/* Subtle state abbreviations, non-interactive */}
-      <g pointerEvents="none" aria-hidden="true">
-        {stateLabels.map((s) => (
-          <text
-            key={s.code}
-            x={s.x}
-            y={s.y}
-            textAnchor="middle"
-            fontFamily="var(--font-mono)"
-            fontSize="11"
-            letterSpacing="3"
-            fill="var(--bone)"
-            fillOpacity="0.18"
-          >
-            {s.code}
-          </text>
-        ))}
-      </g>
-
-      <g>
-        {/* unselected first, then selected on top so its emphasis is never occluded */}
-        {regionShapes.filter(({ f }) => f.id !== selectedId).map(({ f, d }) => (
           <path
+            key={s.code}
+            d={s.d}
+            fill="var(--paper-deep)"
+            fillOpacity="0.55"
+            stroke="var(--ink)"
+            strokeOpacity="0.55"
+            strokeWidth="0.7"
+          />
+        ))}
+      </g>
+
+      {/* Cobalt decorative waterways — labeled non-authoritative on the page */}
+      <g pointerEvents="none" aria-hidden="true">
+        {riverPaths.map((r) => (
+          <path
+            key={r.id}
+            d={r.d}
+            fill="none"
+            stroke="var(--cobalt)"
+            strokeWidth="1.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.85"
+          />
+        ))}
+        {lakePoints.map((l) => (
+          <g key={l.id}>
+            <circle cx={l.x} cy={l.y} r={l.r} fill="var(--cobalt)" opacity="0.75" />
+            <circle cx={l.x} cy={l.y} r={l.r} fill="url(#waterHatch)" />
+          </g>
+        ))}
+      </g>
+
+      {/* Forest density regions — pale-sage → deep pine, hachure fill on top */}
+      <g>
+        {regionShapes.filter(({ f }) => f.id !== selectedId).map(({ f, d }) => (
+          <g
             key={f.id}
-            d={d}
-            fill={densityColor(f.properties.densityClass)}
-            fillOpacity={selectedId ? 0.55 : 0.78}
-            stroke="var(--spruce-deep)"
-            strokeWidth={0.5}
+            className="cursor-pointer transition-[opacity] duration-150"
+            onPointerEnter={(e: ReactPointerEvent<SVGGElement>) => { if (e.pointerType !== "touch") onSelect(f); }}
+            onFocus={() => onSelect(f)}
+            onClick={() => onSelect(f)}
             tabIndex={0}
             role="button"
             aria-label={`${f.properties.name}, density class ${f.properties.densityClass}`}
-            className="cursor-pointer transition-[fill-opacity,stroke-width] duration-150 focus:outline-none focus-visible:stroke-[var(--ember)]"
-            onPointerEnter={(e: ReactPointerEvent<SVGPathElement>) => { if (e.pointerType !== "touch") onSelect(f); }}
-            onFocus={() => onSelect(f)}
-            onClick={() => onSelect(f)}
-          />
-        ))}
-        {regionShapes.filter(({ f }) => f.id === selectedId).map(({ f, d }) => (
-          <g key={f.id} filter="url(#regionGlow)">
-            <path
-              d={d}
-              fill="none"
-              stroke="var(--ember)"
-              strokeOpacity="0.45"
-              strokeWidth="4"
-            />
+            style={{ outline: "none" }}
+          >
             <path
               d={d}
               fill={densityColor(f.properties.densityClass)}
-              fillOpacity={0.98}
-              stroke="var(--ember)"
-              strokeWidth={1.8}
+              fillOpacity={selectedId ? 0.55 : 0.82}
+              stroke="var(--ink)"
+              strokeOpacity="0.55"
+              strokeWidth={0.55}
+            />
+            {/* Forest cluster hatch stamped over the region for texture */}
+            <path
+              d={d}
+              fill="url(#hachureForest)"
+              opacity={f.properties.densityClass >= 6 ? 0.55 : 0.30}
+              pointerEvents="none"
+            />
+          </g>
+        ))}
+        {regionShapes.filter(({ f }) => f.id === selectedId).map(({ f, d }) => (
+          <g key={f.id}>
+            {/* Print offset — vermilion echo behind the plate */}
+            <g transform="translate(2 2)">
+              <path d={d} fill="var(--vermilion)" fillOpacity="0.25" />
+            </g>
+            <path
+              d={d}
+              fill={densityColor(f.properties.densityClass)}
+              fillOpacity={0.95}
+              stroke="var(--vermilion)"
+              strokeWidth={1.6}
               tabIndex={0}
               role="button"
               aria-label={`${f.properties.name}, density class ${f.properties.densityClass}, selected`}
@@ -122,26 +195,107 @@ function WesternAtlasMapImpl({ regions, selectedId, onSelect }: Props) {
               onFocus={() => onSelect(f)}
               onClick={() => onSelect(f)}
             />
+            <path
+              d={d}
+              fill="url(#hachureForest)"
+              opacity="0.6"
+              pointerEvents="none"
+            />
           </g>
         ))}
       </g>
 
+      {/* State abbreviations — small red field labels, printed-map convention */}
+      <g pointerEvents="none" aria-hidden="true">
+        {stateLabels.map((s) => (
+          <text
+            key={s.code}
+            x={s.x}
+            y={s.y}
+            textAnchor="middle"
+            fontFamily="var(--font-display)"
+            fontSize="13"
+            fontWeight={700}
+            letterSpacing="3"
+            fill="var(--vermilion)"
+            opacity="0.68"
+          >
+            {s.code}
+          </text>
+        ))}
+      </g>
+
+      {/* Sparse field illustrations — muted ink, non-interactive */}
+      <g pointerEvents="none" aria-hidden="true" className="hidden md:inline">
+        {illustrations.map((it) => {
+          const Cmp =
+            it.el === "pine" ? IconPine :
+            it.el === "elk" ? IconElk :
+            it.el === "tent" ? IconTent :
+            it.el === "lookout" ? IconLookout : IconBear;
+          return (
+            <g key={it.id} transform={`translate(${it.x - 8} ${it.y - 8})`} style={{ color: "var(--ink)" }} opacity="0.6">
+              <Cmp size={16} />
+            </g>
+          );
+        })}
+      </g>
+
+      {/* IDAHO placard — always emphasized in vermilion */}
       {idaho && (
-        <g pointerEvents="none">
-          <path d={idaho.d} fill="none" stroke="var(--ember)" strokeOpacity="0.55" strokeWidth="1.6" />
-          <g transform={`translate(${idahoLabel.x}, ${idahoLabel.y})`}>
-            <rect x="-56" y="-14" width="112" height="26" rx="13" fill="var(--spruce-deep)" fillOpacity="0.85" stroke="var(--ember)" strokeOpacity="0.6" />
-            <text x="0" y="4" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10" letterSpacing="1.5" fill="var(--ember-soft)">IDAHO ↗</text>
+        <>
+          {/* offset print echo */}
+          <path
+            d={idaho.d}
+            transform="translate(2 2)"
+            fill="var(--vermilion)"
+            opacity="0.18"
+            pointerEvents="none"
+          />
+          <path
+            d={idaho.d}
+            fill="none"
+            stroke="var(--vermilion)"
+            strokeWidth="1.8"
+            pointerEvents="none"
+          />
+          <g transform={`translate(${idahoLabel.x} ${idahoLabel.y})`} pointerEvents="none">
+            {/* Placard: paper plate with vermilion double-rule + drop */}
+            <rect x="-52" y="-16" width="104" height="32" fill="var(--vermilion)" transform="translate(3 3)" />
+            <rect x="-52" y="-16" width="104" height="32" fill="var(--paper)" stroke="var(--vermilion)" strokeWidth="1.4" />
+            <rect x="-49" y="-13" width="98" height="26" fill="none" stroke="var(--vermilion)" strokeWidth="0.6" />
+            <text
+              x="0"
+              y="5"
+              textAnchor="middle"
+              fontFamily="var(--font-display)"
+              fontSize="17"
+              fontWeight={800}
+              letterSpacing="6"
+              fill="var(--vermilion)"
+            >
+              IDAHO
+            </text>
           </g>
-        </g>
+        </>
       )}
 
-      <g pointerEvents="none">
+      {/* Cities — small black dots + printed labels */}
+      <g pointerEvents="none" aria-hidden="true">
         {cityPoints.map(({ c, x, y }) => (
           <g key={c.name} transform={`translate(${x}, ${y})`}>
-            <circle r="2.5" fill="var(--bone)" opacity="0.9" />
-            <circle r="5" fill="none" stroke="var(--bone)" strokeOpacity="0.25" />
-            <text x="7" y="3" fontFamily="var(--font-mono)" fontSize="10" fill="var(--bone-dim)" opacity="0.85">{c.name}</text>
+            <circle r="2" fill="var(--ink)" />
+            <circle r="4" fill="none" stroke="var(--ink)" strokeOpacity="0.35" strokeWidth="0.6" />
+            <text
+              x="6"
+              y="3"
+              fontFamily="var(--font-mono)"
+              fontSize="9"
+              fill="var(--ink)"
+              opacity="0.85"
+            >
+              {c.name}
+            </text>
           </g>
         ))}
       </g>
