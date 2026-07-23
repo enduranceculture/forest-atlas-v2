@@ -15,7 +15,7 @@ export function InventoryList({
 }) {
   if (features.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-white/15 bg-spruce/40 p-5 text-center">
+      <div className="rounded-sm border border-dashed border-white/15 bg-spruce/40 p-5 text-center">
         <p className="font-editorial text-base text-bone">No firesheds match.</p>
         <p className="mt-1 text-xs text-mineral">Loosen a filter or clear the search.</p>
       </div>
@@ -35,7 +35,7 @@ export function InventoryList({
               onBlur={() => onHover(null)}
               onPointerEnter={() => onHover(p.OBJECTID)}
               onPointerLeave={() => onHover(null)}
-              className={`w-full rounded-xl border px-3 py-3 text-left transition focus:outline-none focus:ring-2 focus:ring-ember ${
+              className={`w-full rounded-sm border px-3 py-3 text-left transition focus:outline-none focus:ring-2 focus:ring-ember ${
                 active
                   ? "border-ember/60 bg-ember/10"
                   : hover

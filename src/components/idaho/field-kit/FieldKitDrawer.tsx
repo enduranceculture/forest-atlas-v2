@@ -125,7 +125,7 @@ export function FieldKitDrawer({
           </div>
           <button
             onClick={onClose}
-            className="rounded-full p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+            className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
             aria-label="Close Field Kit"
           >
             <X size={16} />
@@ -143,7 +143,7 @@ export function FieldKitDrawer({
                   const name = window.prompt("Name this kit", "New field kit")?.trim();
                   if (name) kit.createCollection(name);
                 }}
-                className="inline-flex items-center gap-1 rounded-full border border-white/10 px-2.5 py-1 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/25"
+                className="inline-flex items-center gap-1 rounded-none border border-white/10 px-2.5 py-1 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/25"
               >
                 <Plus size={11} /> New
               </button>
@@ -158,7 +158,7 @@ export function FieldKitDrawer({
                   <li key={c.id} className="flex items-center gap-2">
                     <button
                       onClick={() => kit.setActive(c.id)}
-                      className={`flex-1 truncate rounded-lg border px-3 py-1.5 text-left text-sm ${
+                      className={`flex-1 truncate rounded-sm border px-3 py-1.5 text-left text-sm ${
                         c.id === snapshot.activeId
                           ? "border-ember/50 bg-ember/10 text-bone"
                           : "border-white/10 text-bone-dim hover:border-white/25"
@@ -171,7 +171,7 @@ export function FieldKitDrawer({
                     </button>
                     <button
                       onClick={() => kit.duplicateCollection(c.id)}
-                      className="rounded-full p-1.5 text-mineral hover:bg-white/5 hover:text-bone"
+                      className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone"
                       aria-label={`Duplicate ${c.name}`}
                     >
                       <Copy size={12} />
@@ -191,7 +191,7 @@ export function FieldKitDrawer({
                 <input
                   value={active.name}
                   onChange={(e) => kit.renameCollection(active.id, e.target.value)}
-                  className="w-full rounded-lg border border-white/10 bg-spruce-deep/50 px-3 py-2 text-sm text-bone focus:border-ember/60 focus:outline-none"
+                  className="w-full rounded-sm border border-white/10 bg-spruce-deep/50 px-3 py-2 text-sm text-bone focus:border-ember/60 focus:outline-none"
                   aria-label="Kit name"
                 />
                 <textarea
@@ -199,14 +199,14 @@ export function FieldKitDrawer({
                   onChange={(e) => kit.updateCollectionMeta(active.id, { description: e.target.value })}
                   placeholder="Optional description (shipped in exports)"
                   rows={2}
-                  className="w-full rounded-lg border border-white/10 bg-spruce-deep/50 px-3 py-2 text-xs text-bone-dim focus:border-ember/60 focus:outline-none"
+                  className="w-full rounded-sm border border-white/10 bg-spruce-deep/50 px-3 py-2 text-xs text-bone-dim focus:border-ember/60 focus:outline-none"
                 />
                 <textarea
                   value={active.privateNotes ?? ""}
                   onChange={(e) => kit.updateCollectionMeta(active.id, { privateNotes: e.target.value })}
                   placeholder="Private notes (never shared, never in URL, only in GPX if you opt in)"
                   rows={2}
-                  className="w-full rounded-lg border border-white/10 bg-spruce-deep/50 px-3 py-2 text-xs text-bone-dim focus:border-ember/60 focus:outline-none"
+                  className="w-full rounded-sm border border-white/10 bg-spruce-deep/50 px-3 py-2 text-xs text-bone-dim focus:border-ember/60 focus:outline-none"
                 />
               </section>
 
@@ -217,7 +217,7 @@ export function FieldKitDrawer({
                   </div>
                   <button
                     onClick={onOpenImportedBundles}
-                    className="inline-flex items-center gap-1 rounded-full border border-white/10 px-2.5 py-1 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/25"
+                    className="inline-flex items-center gap-1 rounded-none border border-white/10 px-2.5 py-1 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/25"
                   >
                     <FileUp size={11} /> Add imported
                   </button>
@@ -244,7 +244,7 @@ export function FieldKitDrawer({
                         return (
                           <li
                             key={s.id}
-                            className={`rounded-lg border p-2.5 text-xs ${
+                            className={`rounded-sm border p-2.5 text-xs ${
                               stale
                                 ? "border-amber-500/30 bg-amber-500/5 text-amber-200/90"
                                 : "border-white/10 bg-spruce-deep/40 text-bone"
@@ -258,7 +258,7 @@ export function FieldKitDrawer({
                               <button
                                 onClick={() => kit.reorderStop(s.id, "up")}
                                 disabled={i === 0}
-                                className="rounded-full p-1 text-mineral hover:bg-white/5 hover:text-bone disabled:opacity-30"
+                                className="rounded-none p-1 text-mineral hover:bg-white/5 hover:text-bone disabled:opacity-30"
                                 aria-label="Move up"
                               >
                                 <ArrowUp size={12} />
@@ -266,14 +266,14 @@ export function FieldKitDrawer({
                               <button
                                 onClick={() => kit.reorderStop(s.id, "down")}
                                 disabled={i === arr.length - 1}
-                                className="rounded-full p-1 text-mineral hover:bg-white/5 hover:text-bone disabled:opacity-30"
+                                className="rounded-none p-1 text-mineral hover:bg-white/5 hover:text-bone disabled:opacity-30"
                                 aria-label="Move down"
                               >
                                 <ArrowDown size={12} />
                               </button>
                               <button
                                 onClick={() => kit.removeStop(s.id)}
-                                className="rounded-full p-1 text-mineral hover:bg-white/5 hover:text-bone"
+                                className="rounded-none p-1 text-mineral hover:bg-white/5 hover:text-bone"
                                 aria-label="Remove stop"
                               >
                                 <Trash2 size={12} />
@@ -321,12 +321,12 @@ export function FieldKitDrawer({
                     {active.researchRefs.map((r) => (
                       <li
                         key={r.id}
-                        className="flex items-center gap-2 rounded-lg border border-white/10 bg-spruce-deep/40 p-2 text-xs text-bone-dim"
+                        className="flex items-center gap-2 rounded-sm border border-white/10 bg-spruce-deep/40 p-2 text-xs text-bone-dim"
                       >
                         <span className="flex-1 truncate">{r.label}</span>
                         <button
                           onClick={() => kit.removeResearchRef(r.id)}
-                          className="rounded-full p-1 text-mineral hover:bg-white/5 hover:text-bone"
+                          className="rounded-none p-1 text-mineral hover:bg-white/5 hover:text-bone"
                           aria-label="Remove reference"
                         >
                           <Trash2 size={12} />
@@ -354,31 +354,31 @@ export function FieldKitDrawer({
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={exportGpx}
-                className="inline-flex items-center gap-1.5 rounded-full border border-ember/40 bg-ember/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20"
+                className="inline-flex items-center gap-1.5 rounded-none border border-ember/40 bg-ember/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20"
               >
                 <Download size={12} /> Export GPX
               </button>
               <button
                 onClick={shareUrl}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30"
+                className="inline-flex items-center gap-1.5 rounded-none border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30"
               >
                 <Share2 size={12} /> Share view
               </button>
               <button
                 onClick={viewAll}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30"
+                className="inline-flex items-center gap-1.5 rounded-none border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30"
               >
                 <Check size={12} /> View all on map
               </button>
               <button
                 onClick={() => kit.clearCollection(active.id)}
-                className="ml-auto inline-flex items-center gap-1 rounded-full border border-white/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-mineral hover:text-bone"
+                className="ml-auto inline-flex items-center gap-1 rounded-none border border-white/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-mineral hover:text-bone"
               >
                 Clear
               </button>
               <button
                 onClick={() => setShowConfirmDelete(true)}
-                className="inline-flex items-center gap-1 rounded-full border border-red-500/30 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-red-200 hover:bg-red-500/10"
+                className="inline-flex items-center gap-1 rounded-none border border-red-500/30 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-red-200 hover:bg-red-500/10"
               >
                 Delete kit
               </button>
@@ -393,7 +393,7 @@ export function FieldKitDrawer({
 
         {showConfirmDelete && active && (
           <div className="absolute inset-0 z-[10] grid place-items-center bg-black/60 p-6">
-            <div className="max-w-xs rounded-2xl border border-white/10 bg-spruce-deep p-5">
+            <div className="max-w-xs rounded-sm border border-white/10 bg-spruce-deep p-5">
               <div className="font-editorial text-lg text-bone">Delete this kit?</div>
               <p className="mt-2 text-xs text-bone-dim">
                 “{active.name}” and its {active.stops.length} stop(s) will be permanently removed from this device.
@@ -401,7 +401,7 @@ export function FieldKitDrawer({
               <div className="mt-4 flex justify-end gap-2">
                 <button
                   onClick={() => setShowConfirmDelete(false)}
-                  className="rounded-full border border-white/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/25"
+                  className="rounded-none border border-white/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/25"
                 >
                   Cancel
                 </button>
@@ -410,7 +410,7 @@ export function FieldKitDrawer({
                     kit.deleteCollection(active.id);
                     setShowConfirmDelete(false);
                   }}
-                  className="rounded-full border border-red-500/40 bg-red-500/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-red-200 hover:bg-red-500/20"
+                  className="rounded-none border border-red-500/40 bg-red-500/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-red-200 hover:bg-red-500/20"
                 >
                   Delete
                 </button>

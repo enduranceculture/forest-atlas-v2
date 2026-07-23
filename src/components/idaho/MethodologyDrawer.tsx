@@ -54,7 +54,7 @@ export function MethodologyDrawer({
           </span>
           <button
             onClick={onClose}
-            className="rounded-full p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+            className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
             aria-label="Close methodology"
           >
             <X size={18} />
@@ -84,7 +84,7 @@ export function MethodologyDrawer({
               are preserved as-published — no clipping, no simplification. This app never queries
               the USDA service at runtime.
             </p>
-            <div className="rounded-xl border border-white/10 bg-spruce/50 p-3 text-xs leading-relaxed text-bone-dim">
+            <div className="rounded-sm border border-white/10 bg-spruce/50 p-3 text-xs leading-relaxed text-bone-dim">
               <div className="font-field text-[10px] uppercase tracking-widest text-mineral">
                 Current status
               </div>
@@ -114,9 +114,9 @@ export function MethodologyDrawer({
         <h3 className="mt-8 font-editorial text-lg text-bone">Precision classes</h3>
         <dl className="mt-3 space-y-3 text-sm text-bone-dim">
           {(Object.keys(PRECISION_META) as Waypoint["precision"][]).map((p) => (
-            <div key={p} className="rounded-xl border border-white/10 bg-spruce/50 p-3">
+            <div key={p} className="rounded-sm border border-white/10 bg-spruce/50 p-3">
               <dt className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full" style={{ background: PRECISION_META[p].color }} />
+                <span className="h-2 w-2 rounded-none" style={{ background: PRECISION_META[p].color }} />
                 <span className="font-field text-[10px] uppercase tracking-widest" style={{ color: PRECISION_META[p].color }}>
                   {PRECISION_META[p].short}
                 </span>
@@ -130,7 +130,7 @@ export function MethodologyDrawer({
         <h3 className="mt-8 font-editorial text-lg text-bone">Data quality summary</h3>
         <div className="mt-3 grid grid-cols-3 gap-2 text-center">
           {(["exact", "approximate", "site-center"] as Waypoint["precision"][]).map((p) => (
-            <div key={p} className="rounded-xl border border-white/10 bg-spruce/60 p-3">
+            <div key={p} className="rounded-sm border border-white/10 bg-spruce/60 p-3">
               <div className="font-editorial text-2xl text-bone">{byPrecision[p]}</div>
               <div className="mt-1 font-field text-[9px] uppercase tracking-widest text-mineral">
                 {PRECISION_META[p].short} · {pct(byPrecision[p])}%
@@ -140,7 +140,7 @@ export function MethodologyDrawer({
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2">
           {(Object.keys(bySource) as Waypoint["sourceType"][]).map((s) => (
-            <div key={s} className="rounded-xl border border-white/10 bg-spruce/40 p-3">
+            <div key={s} className="rounded-sm border border-white/10 bg-spruce/40 p-3">
               <div className="font-field text-[9px] uppercase tracking-widest text-mineral">{SOURCE_TYPE_LABEL[s]}</div>
               <div className="mt-1 font-editorial text-lg text-bone">{bySource[s]}</div>
             </div>

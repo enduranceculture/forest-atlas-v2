@@ -16,7 +16,7 @@ export function BasemapSwitcher({
 }) {
   return (
     <div
-      className="pointer-events-auto flex overflow-hidden rounded-full border border-white/15 bg-spruce-deep/90 backdrop-blur"
+      className="pointer-events-auto flex overflow-hidden rounded-none border border-white/15 bg-spruce-deep/90 backdrop-blur"
       role="radiogroup"
       aria-label="Basemap style"
     >
@@ -53,7 +53,7 @@ export function LayerToggles({
     { key: "context", label: "Forest context" },
   ];
   return (
-    <div className="pointer-events-auto rounded-2xl border border-white/15 bg-spruce-deep/90 p-3 backdrop-blur">
+    <div className="pointer-events-auto rounded-sm border border-white/15 bg-spruce-deep/90 p-3 backdrop-blur">
       <div className="mb-1.5 flex items-center gap-1.5 font-field text-[9px] uppercase tracking-widest text-mineral">
         <Layers size={11} /> Layers
       </div>
@@ -85,14 +85,14 @@ export function MapActionButtons({
     <div className="pointer-events-auto flex flex-col gap-1.5">
       <button
         onClick={onLocate}
-        className="inline-flex items-center justify-center gap-1.5 rounded-full border border-white/15 bg-spruce-deep/90 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone backdrop-blur hover:bg-spruce focus:outline-none focus:ring-2 focus:ring-ember"
+        className="inline-flex items-center justify-center gap-1.5 rounded-none border border-white/15 bg-spruce-deep/90 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone backdrop-blur hover:bg-spruce focus:outline-none focus:ring-2 focus:ring-ember"
         aria-label="Locate me"
       >
         <Crosshair size={12} /> Locate
       </button>
       <button
         onClick={onReset}
-        className="inline-flex items-center justify-center gap-1.5 rounded-full border border-white/15 bg-spruce-deep/90 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone backdrop-blur hover:bg-spruce focus:outline-none focus:ring-2 focus:ring-ember"
+        className="inline-flex items-center justify-center gap-1.5 rounded-none border border-white/15 bg-spruce-deep/90 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone backdrop-blur hover:bg-spruce focus:outline-none focus:ring-2 focus:ring-ember"
         aria-label="Reset map extent"
       >
         <RotateCcw size={12} /> Reset

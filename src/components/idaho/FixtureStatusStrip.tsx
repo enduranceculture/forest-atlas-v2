@@ -11,7 +11,7 @@ export function FixtureStatusStrip({
 }) {
   if (status.kind !== "fixture") return null;
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-white/10 bg-spruce-deep/60 px-3 py-2 text-xs text-bone-dim">
+    <div className="flex items-start gap-2 rounded-sm border border-white/10 bg-spruce-deep/60 px-3 py-2 text-xs text-bone-dim">
       <Info size={13} className="mt-0.5 shrink-0 text-mineral" />
       <div className="min-w-0 flex-1">
         <div className="font-field text-[9px] uppercase tracking-widest text-mineral">

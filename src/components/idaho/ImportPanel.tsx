@@ -68,13 +68,13 @@ export function ImportPanel({
       <div className="flex flex-wrap gap-2">
         <button
           onClick={onPick}
-          className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30 focus:outline-none focus:ring-2 focus:ring-ember"
+          className="inline-flex items-center gap-1.5 rounded-none border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30 focus:outline-none focus:ring-2 focus:ring-ember"
         >
           <FileUp size={12} /> Import GPX
         </button>
         <button
           onClick={exportFiltered}
-          className="inline-flex items-center gap-1.5 rounded-full border border-ember/40 bg-ember/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20 focus:outline-none focus:ring-2 focus:ring-ember"
+          className="inline-flex items-center gap-1.5 rounded-none border border-ember/40 bg-ember/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20 focus:outline-none focus:ring-2 focus:ring-ember"
         >
           <Download size={12} /> Export filtered
         </button>
@@ -86,7 +86,7 @@ export function ImportPanel({
       {imports.length > 0 && (
         <ul className="space-y-2">
           {imports.map((b, i) => (
-            <li key={b.importedAt + b.fileName} className="rounded-xl border border-white/10 bg-spruce/60 p-3">
+            <li key={b.importedAt + b.fileName} className="rounded-sm border border-white/10 bg-spruce/60 p-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
                   <div className="truncate font-editorial text-sm text-bone">{b.fileName}</div>
@@ -99,7 +99,7 @@ export function ImportPanel({
                   {onAddBundleToKit && (b.waypoints.length + b.lines.length) > 0 && (
                     <button
                       onClick={() => onAddBundleToKit(b)}
-                      className="rounded-full p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+                      className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
                       aria-label={`Add ${b.fileName} to Field Kit`}
                       title="Add all waypoints and lines from this file to the active Field Kit"
                     >
@@ -109,7 +109,7 @@ export function ImportPanel({
                   {b.lines.length > 0 && (
                     <button
                       onClick={() => exportImports(b)}
-                      className="rounded-full p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+                      className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
                       aria-label={`Re-export ${b.fileName}`}
                     >
                       <Download size={13} />
@@ -117,7 +117,7 @@ export function ImportPanel({
                   )}
                   <button
                     onClick={() => onRemove(i)}
-                    className="rounded-full p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+                    className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
                     aria-label={`Remove ${b.fileName}`}
                   >
                     <Trash2 size={13} />
@@ -125,7 +125,7 @@ export function ImportPanel({
                 </div>
               </div>
               {b.warnings.length > 0 && (
-                <div className="mt-2 flex items-start gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/5 p-2 text-[11px] text-amber-200/90">
+                <div className="mt-2 flex items-start gap-1.5 rounded-sm border border-amber-500/20 bg-amber-500/5 p-2 text-[11px] text-amber-200/90">
                   <AlertTriangle size={12} className="mt-0.5 shrink-0" />
                   <ul className="list-disc pl-3">
                     {b.warnings.map((w, wi) => (

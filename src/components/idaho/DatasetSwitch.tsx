@@ -11,7 +11,7 @@ export function DatasetSwitch({
 }) {
   return (
     <div
-      className="pointer-events-auto inline-flex overflow-hidden rounded-full border border-white/15 bg-spruce-deep/85 backdrop-blur"
+      className="pointer-events-auto inline-flex overflow-hidden rounded-none border border-white/15 bg-spruce-deep/85 backdrop-blur"
       role="radiogroup"
       aria-label="Dataset"
     >
