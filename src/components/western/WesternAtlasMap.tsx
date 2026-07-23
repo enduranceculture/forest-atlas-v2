@@ -63,15 +63,48 @@ function WesternAtlasMapImpl({ regions, selectedId, onSelect }: Props) {
 
   const riverPaths = useMemo(
     () =>
-      DECORATIVE_RIVERS.map((r) => ({
-        id: r.id,
-        d: r.coordinates
-          .map(([lon, lat], i) => {
-            const p = project(lon, lat);
-            return `${i === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`;
-          })
-          .join(" "),
-      })),
+      DECORATIVE_RIVERS.map((r) => {
+        // Project vertices, then insert 2 subtly jittered intermediate points
+        // per segment and smooth the polyline with quadratic Beziers so
+        // waterways read as hand-drawn meanders rather than digitally
+        // straight lines. Deterministic hash → identical between renders.
+        const hash = (s: string, i: number) => {
+          let h = 2166136261 ^ i;
+          for (let k = 0; k < s.length; k++) h = Math.imul(h ^ s.charCodeAt(k), 16777619);
+          return ((h >>> 0) % 1000) / 1000; // 0..1
+        };
+        const base = r.coordinates.map(([lon, lat]) => project(lon, lat));
+        const pts: { x: number; y: number }[] = [];
+        for (let i = 0; i < base.length - 1; i++) {
+          const a = base[i];
+          const b = base[i + 1];
+          pts.push(a);
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const len = Math.hypot(dx, dy) || 1;
+          const nx = -dy / len;
+          const ny = dx / len;
+          for (const t of [0.33, 0.66]) {
+            const j = (hash(r.id, i * 10 + Math.round(t * 10)) - 0.5) * 2; // -1..1
+            const amp = Math.min(len * 0.22, 6.5); // subtle meander
+            pts.push({
+              x: a.x + dx * t + nx * j * amp,
+              y: a.y + dy * t + ny * j * amp,
+            });
+          }
+        }
+        pts.push(base[base.length - 1]);
+        // Smooth: M first, then quadratic through midpoints of successive pairs.
+        let d = `M ${pts[0].x.toFixed(2)} ${pts[0].y.toFixed(2)}`;
+        for (let i = 1; i < pts.length - 1; i++) {
+          const mx = (pts[i].x + pts[i + 1].x) / 2;
+          const my = (pts[i].y + pts[i + 1].y) / 2;
+          d += ` Q ${pts[i].x.toFixed(2)} ${pts[i].y.toFixed(2)} ${mx.toFixed(2)} ${my.toFixed(2)}`;
+        }
+        const last = pts[pts.length - 1];
+        d += ` T ${last.x.toFixed(2)} ${last.y.toFixed(2)}`;
+        return { id: r.id, d };
+      }),
     [],
   );
   const lakePoints = useMemo(
