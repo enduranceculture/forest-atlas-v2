@@ -20,7 +20,7 @@ export const idahoSearchSchema = z.object({
   src: fallback(z.string(), "").default(""),
   // Hidden layer keys (CSV). Absence means "all visible".
   hide: fallback(z.string(), "").default(""),
-  basemap: fallback(z.enum(IDAHO_BASEMAPS), "dark").default("dark"),
+  basemap: fallback(z.enum(IDAHO_BASEMAPS), "light").default("light"),
   // "lat,lon,zoom" — persisted map view. Empty means "let the map choose".
   c: fallback(z.string(), "").default(""),
   // Active saved-collection ID. Dormant param — Gate 3 will populate it.
@@ -43,7 +43,7 @@ export const IDAHO_SEARCH_DEFAULTS: IdahoSearch = {
   prec: "",
   src: "",
   hide: "",
-  basemap: "dark",
+  basemap: "light",
   c: "",
   col: "",
   ninec: "",
