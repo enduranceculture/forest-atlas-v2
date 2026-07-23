@@ -78,13 +78,13 @@ export function InventoryUnavailable({
         <div className="mt-6 flex flex-wrap gap-2">
           <button
             onClick={onSwitchToSites}
-            className="inline-flex items-center gap-1.5 rounded-full border border-ember/50 bg-ember/15 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/25 focus:outline-none focus:ring-2 focus:ring-ember"
+            className="inline-flex items-center gap-1.5 rounded-none border border-ember/50 bg-ember/15 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/25 focus:outline-none focus:ring-2 focus:ring-ember"
           >
             <MapPin size={12} /> Switch to Field Sites
           </button>
           <button
             onClick={onOpenMethodology}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-ember"
+            className="inline-flex items-center gap-1.5 rounded-none border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-ember"
           >
             <BookOpen size={12} /> Methodology
           </button>

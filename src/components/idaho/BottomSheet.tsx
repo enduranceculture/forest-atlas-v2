@@ -29,7 +29,7 @@ export function BottomSheet({
         onClick={() => onSnapChange(NEXT[snap])}
         aria-label={`Sheet size: ${LABEL[snap]}. Tap to cycle.`}
       >
-        <span className="block h-1.5 w-12 rounded-full bg-white/25 group-hover:bg-white/40" />
+        <span className="block h-1.5 w-12 rounded-none bg-white/25 group-hover:bg-white/40" />
       </button>
       <div className="h-[calc(100%-1.75rem)] overflow-y-auto px-5 pb-6 pt-1">{children}</div>
     </div>

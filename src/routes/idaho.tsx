@@ -297,7 +297,7 @@ function IdahoPage() {
             to="/"
             aria-label="Back to Western Atlas"
             title="Western Atlas"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/10 px-2 py-1.5 font-field text-[10px] uppercase tracking-widest text-mineral transition hover:border-white/25 hover:text-bone sm:px-3"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-none border border-white/10 px-2 py-1.5 font-field text-[10px] uppercase tracking-widest text-mineral transition hover:border-white/25 hover:text-bone sm:px-3"
           >
             <ArrowLeft size={12} />
             <span className="hidden sm:inline">Western Atlas</span>
@@ -326,12 +326,12 @@ function IdahoPage() {
           )}
           <button
             onClick={() => setKitOpen(true)}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-ember/40 bg-ember/10 px-2.5 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20 focus:outline-none focus:ring-2 focus:ring-ember sm:px-3"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-none border border-ember/40 bg-ember/10 px-2.5 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20 focus:outline-none focus:ring-2 focus:ring-ember sm:px-3"
           >
             <Briefcase size={12} />
             <span>Field Kit</span>
             {kit.active && kit.active.stops.length > 0 && (
-              <span className="rounded-full bg-ember/30 px-1.5 py-0.5 text-[9px] text-bone sm:ml-1">
+              <span className="rounded-none bg-ember/30 px-1.5 py-0.5 text-[9px] text-bone sm:ml-1">
                 {kit.active.stops.length}
               </span>
             )}
@@ -340,7 +340,7 @@ function IdahoPage() {
             onClick={() => setMethodologyOpen(true)}
             aria-label="Methodology"
             title="Methodology"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/10 px-2 py-1.5 font-field text-[10px] uppercase tracking-widest text-mineral transition hover:border-white/25 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember sm:px-3"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-none border border-white/10 px-2 py-1.5 font-field text-[10px] uppercase tracking-widest text-mineral transition hover:border-white/25 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember sm:px-3"
           >
             <BookOpen size={12} />
             <span className="hidden sm:inline">Methodology</span>
@@ -436,7 +436,7 @@ function IdahoPage() {
             />
           ) : (
             <div className="flex h-full flex-col gap-3 p-4">
-              <div className="rounded-xl border border-white/10 bg-spruce-deep/60 p-4 text-xs leading-relaxed text-bone-dim">
+              <div className="rounded-sm border border-white/10 bg-spruce-deep/60 p-4 text-xs leading-relaxed text-bone-dim">
                 <div className="font-field text-[10px] uppercase tracking-widest text-ember">
                   Landscape Inventory unavailable
                 </div>
@@ -446,7 +446,7 @@ function IdahoPage() {
                 </p>
                 <button
                   onClick={() => setMode("sites")}
-                  className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-ember/50 bg-ember/15 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/25 focus:outline-none focus:ring-2 focus:ring-ember"
+                  className="mt-3 inline-flex items-center gap-1.5 rounded-none border border-ember/50 bg-ember/15 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/25 focus:outline-none focus:ring-2 focus:ring-ember"
                 >
                   Switch to Field Sites
                 </button>
@@ -529,7 +529,7 @@ function IdahoPage() {
           {/* Selected detail (desktop overlay) */}
           {mode === "sites" && selected && (
             <div
-              className="pointer-events-auto absolute right-4 top-4 z-[900] hidden w-[400px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-spruce/95 p-5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur md:flex lg:right-16 xl:w-[420px]"
+              className="pointer-events-auto absolute right-4 top-4 z-[900] hidden w-[400px] flex-col overflow-hidden rounded-sm border border-white/10 bg-spruce/95 p-5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur md:flex lg:right-16 xl:w-[420px]"
               style={{ maxHeight: "calc(100vh - 8rem)" }}
             >
               <WaypointDetail
@@ -566,7 +566,7 @@ function IdahoPage() {
             </p>
             <button
               onClick={() => setMode("sites")}
-              className="inline-flex items-center gap-1.5 rounded-full border border-ember/50 bg-ember/15 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft"
+              className="inline-flex items-center gap-1.5 rounded-none border border-ember/50 bg-ember/15 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft"
             >
               Switch to Field Sites
             </button>
@@ -584,7 +584,7 @@ function IdahoPage() {
                   role="tab"
                   aria-selected={mobileTab === t}
                   onClick={() => setMobileTab(t)}
-                  className={`rounded-full border px-3 py-1 font-field text-[10px] uppercase tracking-widest transition ${
+                  className={`rounded-none border px-3 py-1 font-field text-[10px] uppercase tracking-widest transition ${
                     mobileTab === t
                       ? "border-ember/60 bg-ember/15 text-ember-soft"
                       : "border-white/10 text-mineral"
@@ -686,12 +686,12 @@ function IdahoPage() {
       {toast && (
         <div
           role="status"
-          className="pointer-events-auto fixed bottom-6 left-1/2 z-[1300] flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-spruce-deep/95 px-4 py-2 font-field text-[11px] text-bone shadow-lg backdrop-blur"
+          className="pointer-events-auto fixed bottom-6 left-1/2 z-[1300] flex -translate-x-1/2 items-center gap-2 rounded-none border border-white/15 bg-spruce-deep/95 px-4 py-2 font-field text-[11px] text-bone shadow-lg backdrop-blur"
         >
           <span>{toast}</span>
           <button
             onClick={() => setToast(null)}
-            className="rounded-full p-0.5 text-mineral hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+            className="rounded-none p-0.5 text-mineral hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
             aria-label="Dismiss"
           >
             <X size={12} />

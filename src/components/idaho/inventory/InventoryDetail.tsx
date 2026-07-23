@@ -45,13 +45,13 @@ export function InventoryDetail({
         <button
           onClick={onClose}
           aria-label="Close detail"
-          className="rounded-full p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+          className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
         >
           <X size={16} />
         </button>
       </div>
 
-      <div className="mt-4 rounded-xl border border-white/10 bg-spruce-deep/50 p-3">
+      <div className="mt-4 rounded-sm border border-white/10 bg-spruce-deep/50 p-3">
         <Row label="Mature acres" value={fmtAcres(p.MATURE_ACRES)} />
         <Row label="Mature SE" value={fmtSe(p.MATURE_SE_PERC)} />
         <Row label="Old-growth acres" value={fmtAcres(p.OLD_GROWTH_ACRES)} />
@@ -78,7 +78,7 @@ export function InventoryDetail({
           <button
             onClick={() => onSaveResearchRef(feature)}
             disabled={savedAsResearchRef}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30 disabled:opacity-60"
+            className="inline-flex items-center gap-1.5 rounded-none border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30 disabled:opacity-60"
           >
             <Bookmark size={12} />
             {savedAsResearchRef ? "Saved to Field Kit" : "Save as research reference"}

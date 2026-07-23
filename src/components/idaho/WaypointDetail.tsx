@@ -47,17 +47,17 @@ export function WaypointDetail({
       {/* Sticky identity header: never scrolls, so close + name stay reachable */}
       <div className="flex shrink-0 items-start justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-full ring-2 ring-white/10" style={{ background: CATEGORY_META[w.category].color }} />
+          <span className="h-2.5 w-2.5 rounded-none ring-2 ring-white/10" style={{ background: CATEGORY_META[w.category].color }} />
           <span className="font-field text-[10px] uppercase tracking-widest text-mineral">{w.category}</span>
           <span
-            className="rounded-full border border-white/15 px-1.5 py-0.5 font-field text-[9px] uppercase tracking-widest"
+            className="rounded-none border border-white/15 px-1.5 py-0.5 font-field text-[9px] uppercase tracking-widest"
             style={{ color: PRECISION_META[w.precision].color }}
             title={PRECISION_META[w.precision].description}
           >
             {PRECISION_META[w.precision].short}
           </span>
         </div>
-        <button onClick={onClose} className="rounded-full p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember" aria-label="Close detail">
+        <button onClick={onClose} className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember" aria-label="Close detail">
           <X size={16} />
         </button>
       </div>
@@ -78,7 +78,7 @@ export function WaypointDetail({
         <div>
           <dt>Confidence</dt>
           <dd className="mt-1 inline-flex items-center gap-1.5 font-sans text-sm normal-case tracking-normal text-bone">
-            <span className="h-2 w-2 rounded-full" style={{ background: CONFIDENCE_COLOR[w.confidence] }} />
+            <span className="h-2 w-2 rounded-none" style={{ background: CONFIDENCE_COLOR[w.confidence] }} />
             {w.confidence}
           </dd>
         </div>
@@ -86,7 +86,7 @@ export function WaypointDetail({
           <dt>Coordinates</dt>
           <dd className="mt-1 flex items-center gap-2">
             <code className="font-field text-sm text-bone">{coords}</code>
-            <button onClick={copy} className="rounded-full p-1 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember" aria-label="Copy coordinates">
+            <button onClick={copy} className="rounded-none p-1 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember" aria-label="Copy coordinates">
               {copied ? <Check size={13} /> : <Copy size={13} />}
             </button>
             <span
@@ -109,7 +109,7 @@ export function WaypointDetail({
         <p className="mt-2 text-sm leading-relaxed text-bone-dim">{w.access}</p>
       </div>
 
-      <div className="mt-5 rounded-xl border border-white/10 bg-spruce-deep/50 p-3">
+      <div className="mt-5 rounded-sm border border-white/10 bg-spruce-deep/50 p-3">
         <div className="font-field text-[10px] uppercase tracking-widest text-mineral">Provenance</div>
         <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs text-bone-dim">
           <dt className="text-mineral">Source</dt>
@@ -151,7 +151,7 @@ export function WaypointDetail({
       <div className="mt-5 flex flex-wrap gap-2">
         <button
           onClick={exportGpx}
-          className="inline-flex items-center gap-1.5 rounded-full border border-ember/40 bg-ember/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20 focus:outline-none focus:ring-2 focus:ring-ember"
+          className="inline-flex items-center gap-1.5 rounded-none border border-ember/40 bg-ember/10 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20 focus:outline-none focus:ring-2 focus:ring-ember"
         >
           <Download size={12} /> Export GPX
         </button>
@@ -159,7 +159,7 @@ export function WaypointDetail({
           <button
             onClick={() => onAddToKit(w)}
             disabled={inKit}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30 disabled:cursor-default disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-ember"
+            className="inline-flex items-center gap-1.5 rounded-none border border-white/15 bg-spruce-deep/70 px-3 py-1.5 font-field text-[10px] uppercase tracking-widest text-bone hover:border-white/30 disabled:cursor-default disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-ember"
           >
             <Plus size={12} /> {inKit ? "In Field Kit" : "Add to Field Kit"}
           </button>

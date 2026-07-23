@@ -33,13 +33,13 @@ function Chip({
     <button
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-field text-[10px] uppercase tracking-wider transition ${
+      className={`inline-flex items-center gap-1.5 rounded-none border px-2.5 py-1 font-field text-[10px] uppercase tracking-wider transition ${
         active
           ? "border-ember/60 bg-ember/15 text-ember-soft"
           : "border-white/10 text-mineral hover:border-white/25 hover:text-bone"
       }`}
     >
-      {swatch && <span className="h-2 w-2 rounded-full" style={{ background: swatch }} />}
+      {swatch && <span className="h-2 w-2 rounded-none" style={{ background: swatch }} />}
       {label}
     </button>
   );
@@ -65,7 +65,7 @@ export function SiteFilters({
           value={query}
           onChange={(e) => onQuery(e.target.value)}
           placeholder="Search name, species, region, source, notes"
-          className="w-full rounded-full border border-white/10 bg-spruce-deep/70 py-2 pl-9 pr-3 text-sm text-bone placeholder:text-mineral focus:border-ember/60 focus:outline-none focus:ring-2 focus:ring-ember/30"
+          className="w-full rounded-none border border-white/10 bg-spruce-deep/70 py-2 pl-9 pr-3 text-sm text-bone placeholder:text-mineral focus:border-ember/60 focus:outline-none focus:ring-2 focus:ring-ember/30"
           aria-label="Search waypoints"
         />
       </div>
