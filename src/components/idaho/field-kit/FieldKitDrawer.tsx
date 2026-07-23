@@ -156,10 +156,10 @@ export function FieldKitDrawer({
             </div>
             <button
               onClick={onClose}
-              className="shrink-0 rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-none border border-ember/70 bg-[var(--paper)] text-ember shadow-[2px_2px_0_0_var(--ink)] transition hover:-translate-x-px hover:-translate-y-px hover:bg-ember hover:text-[var(--paper)] hover:shadow-[3px_3px_0_0_var(--ink)] focus:outline-none focus:ring-2 focus:ring-ember"
               aria-label="Close Field Kit"
             >
-              <X size={16} />
+              <X size={18} strokeWidth={2.5} />
             </button>
           </div>
         </header>
