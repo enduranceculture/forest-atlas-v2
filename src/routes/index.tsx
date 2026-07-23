@@ -74,10 +74,12 @@ function Index() {
               >
                 <Info size={11} /> About · Data
               </InkButton>
-              <Link to="/idaho" aria-label="Open Idaho Field Explorer">
-                <InkButton tone="vermilion" size="md" as="span" onClick={() => {}}>
-                  <span>Enter Idaho</span> <ArrowRight size={12} />
-                </InkButton>
+              <Link
+                to="/idaho"
+                aria-label="Open Idaho Field Explorer"
+                className="inline-flex items-center gap-1.5 border border-[var(--vermilion-deep)] bg-[var(--vermilion)] px-3.5 py-1.5 font-field text-[11px] uppercase tracking-[0.2em] text-[var(--paper)] shadow-[2px_2px_0_0_var(--ink)] transition-[transform,box-shadow] duration-100 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--vermilion)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--paper)]"
+              >
+                <span>Enter Idaho</span> <ArrowRight size={12} />
               </Link>
             </div>
           </header>
