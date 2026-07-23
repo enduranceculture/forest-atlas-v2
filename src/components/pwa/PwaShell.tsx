@@ -51,7 +51,7 @@ export function PwaShell() {
       <div
         aria-live="polite"
         data-testid="pwa-status"
-        className="pointer-events-none fixed z-[1200] flex items-center gap-2 border border-[var(--ink)] bg-[var(--paper)] px-2.5 py-1 font-field text-[10px] uppercase tracking-[0.24em] text-[var(--ink)] shadow-[2px_2px_0_0_var(--vermilion)] right-3 top-[3.75rem] md:right-auto md:top-auto md:left-3 md:bottom-3"
+        className="pwa-status-chip pointer-events-none fixed z-[1200] flex items-center gap-2 border border-[var(--ink)] bg-[var(--paper)] px-2.5 py-1 font-field text-[10px] uppercase tracking-[0.24em] text-[var(--ink)] shadow-[2px_2px_0_0_var(--vermilion)] left-3 bottom-3 md:right-auto md:top-auto md:left-3 md:bottom-3"
       >
         <span
           className={`h-1.5 w-1.5 ${
@@ -66,7 +66,7 @@ export function PwaShell() {
       {showOffline ? (
         <div
           role="status"
-          className="fixed left-1/2 top-[3.5rem] z-[1300] w-[min(94vw,520px)] -translate-x-1/2 border border-[var(--vermilion)] bg-[var(--paper)] p-3 text-[var(--ink)] shadow-[3px_3px_0_0_var(--ink)] md:top-3"
+          className="fixed left-1/2 top-[6.75rem] z-[1300] w-[min(94vw,520px)] -translate-x-1/2 border border-[var(--vermilion)] bg-[var(--paper)] p-3 text-[var(--ink)] shadow-[3px_3px_0_0_var(--ink)] md:top-3"
         >
           <div className="flex items-start gap-3">
             <div className="mt-1 h-2 w-2 shrink-0 bg-[var(--vermilion)]" aria-hidden="true" />
@@ -96,7 +96,7 @@ export function PwaShell() {
         <div
           role="dialog"
           aria-label="Update available"
-          className="fixed right-3 bottom-3 z-[70] w-[min(94vw,360px)] border border-[var(--vermilion)] bg-[var(--paper)] p-3 text-[var(--ink)] shadow-[3px_3px_0_0_var(--ink)]"
+          className="pwa-update-toast fixed right-3 bottom-3 z-[70] w-[min(94vw,360px)] border border-[var(--vermilion)] bg-[var(--paper)] p-3 text-[var(--ink)] shadow-[3px_3px_0_0_var(--ink)]"
         >
           <div className="font-field text-[10px] uppercase tracking-[0.3em] text-[var(--vermilion)]">
             — Wire · New Edition Ready —
