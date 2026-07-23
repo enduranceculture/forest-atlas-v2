@@ -114,26 +114,58 @@ export function FieldKitDrawer({
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <header className="flex shrink-0 items-center justify-between border-b border-white/10 px-5 py-4">
-          <div>
-            <div className="font-field text-[10px] uppercase tracking-widest text-ember">
-              Forest Field Kit
-            </div>
-            <div className="font-editorial text-lg text-bone">
-              {active ? active.name : "No collection yet"}
+        <header className="shrink-0 border-b border-white/10">
+          {/* Folio index tabs — printed dividers across the top of the folio. */}
+          <div
+            className="flex items-end gap-1 border-b border-white/5 bg-spruce-deep/40 px-3 pt-2"
+            aria-hidden="true"
+          >
+            {(["Kit", "Stops", "Refs"] as const).map((label, i) => (
+              <a
+                key={label}
+                href={`#fk-${label.toLowerCase()}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById(`fk-${label.toLowerCase()}`)
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                tabIndex={-1}
+                className={`relative -mb-px inline-flex items-center border border-b-0 px-2.5 py-1 font-field text-[9px] uppercase tracking-[0.22em] leading-none text-mineral transition hover:text-bone ${
+                  i === 0
+                    ? "border-ember/40 bg-spruce text-ember-soft"
+                    : "border-white/10 bg-spruce-deep/60"
+                }`}
+                style={{ clipPath: "polygon(6% 0, 94% 0, 100% 100%, 0 100%)" }}
+              >
+                {label}
+              </a>
+            ))}
+            <div className="ml-auto pb-1 font-field text-[9px] uppercase tracking-[0.22em] text-mineral">
+              Folio Nº {(snapshot.activeId ?? "0000").slice(-4).toUpperCase()}
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
-            aria-label="Close Field Kit"
-          >
-            <X size={16} />
-          </button>
+          <div className="flex items-center justify-between px-5 py-4">
+            <div className="min-w-0">
+              <div className="font-field text-[10px] uppercase tracking-widest text-ember">
+                Forest Field Kit
+              </div>
+              <div className="truncate font-editorial text-lg text-bone">
+                {active ? active.name : "No collection yet"}
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="shrink-0 rounded-none p-1.5 text-mineral hover:bg-white/5 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember"
+              aria-label="Close Field Kit"
+            >
+              <X size={16} />
+            </button>
+          </div>
         </header>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
-          <section className="space-y-2">
+          <section id="fk-kit" className="space-y-2 scroll-mt-4">
             <div className="flex items-center justify-between">
               <div className="font-field text-[10px] uppercase tracking-widest text-mineral">
                 Collections
@@ -210,7 +242,7 @@ export function FieldKitDrawer({
                 />
               </section>
 
-              <section className="mt-6 space-y-2">
+              <section id="fk-stops" className="mt-6 space-y-2 scroll-mt-4">
                 <div className="flex items-center justify-between">
                   <div className="font-field text-[10px] uppercase tracking-widest text-mineral">
                     Navigable stops ({active.stops.length})
@@ -309,7 +341,7 @@ export function FieldKitDrawer({
               </section>
 
               {active.researchRefs.length > 0 && (
-                <section className="mt-6 space-y-2">
+                <section id="fk-refs" className="mt-6 space-y-2 scroll-mt-4">
                   <div className="font-field text-[10px] uppercase tracking-widest text-mineral">
                     Research references ({active.researchRefs.length})
                   </div>

@@ -291,13 +291,13 @@ function IdahoPage() {
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-spruce-deep text-bone">
       {/* Top bar */}
-      <header className="grid shrink-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-white/5 px-4 py-3 sm:px-6">
-        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+      <header className="grid shrink-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 border-b border-white/5 px-3 py-2 leading-none sm:gap-4 sm:px-6 sm:py-3">
+        <div className="flex min-w-0 items-center gap-1.5 sm:gap-3">
           <Link
             to="/"
             aria-label="Back to Western Atlas"
             title="Western Atlas"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-none border border-white/10 px-2 py-1.5 font-field text-[10px] uppercase tracking-widest text-mineral transition hover:border-white/25 hover:text-bone sm:px-3"
+            className="inline-flex shrink-0 items-center gap-1 rounded-none border border-white/10 px-1.5 py-1 font-field text-[9px] uppercase tracking-[0.18em] leading-none text-mineral transition hover:border-white/25 hover:text-bone sm:gap-1.5 sm:px-3 sm:py-1.5 sm:text-[10px] sm:tracking-widest"
           >
             <ArrowLeft size={12} />
             <span className="hidden sm:inline">Western Atlas</span>
@@ -313,7 +313,7 @@ function IdahoPage() {
             <DatasetSwitch value={mode} onChange={setMode} />
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           {mode === "sites" && (
             <div className="hidden font-field text-[10px] uppercase tracking-widest text-mineral sm:block">
               {filtered.length} / {result.data.length} sites
@@ -326,12 +326,12 @@ function IdahoPage() {
           )}
           <button
             onClick={() => setKitOpen(true)}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-none border border-ember/40 bg-ember/10 px-2.5 py-1.5 font-field text-[10px] uppercase tracking-widest text-ember-soft hover:bg-ember/20 focus:outline-none focus:ring-2 focus:ring-ember sm:px-3"
+            className="inline-flex shrink-0 items-center gap-1 rounded-none border border-ember/40 bg-ember/10 px-1.5 py-1 font-field text-[9px] uppercase tracking-[0.18em] leading-none text-ember-soft hover:bg-ember/20 focus:outline-none focus:ring-2 focus:ring-ember sm:gap-1.5 sm:px-3 sm:py-1.5 sm:text-[10px] sm:tracking-widest"
           >
             <Briefcase size={12} />
             <span>Field Kit</span>
             {kit.active && kit.active.stops.length > 0 && (
-              <span className="rounded-none bg-ember/30 px-1.5 py-0.5 text-[9px] text-bone sm:ml-1">
+              <span className="ml-0.5 rounded-none bg-ember/30 px-1 py-px text-[8px] leading-none text-bone sm:ml-1 sm:px-1.5 sm:py-0.5 sm:text-[9px]">
                 {kit.active.stops.length}
               </span>
             )}
@@ -340,7 +340,7 @@ function IdahoPage() {
             onClick={() => setMethodologyOpen(true)}
             aria-label="Methodology"
             title="Methodology"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-none border border-white/10 px-2 py-1.5 font-field text-[10px] uppercase tracking-widest text-mineral transition hover:border-white/25 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember sm:px-3"
+            className="inline-flex shrink-0 items-center gap-1 rounded-none border border-white/10 px-1.5 py-1 font-field text-[9px] uppercase tracking-[0.18em] leading-none text-mineral transition hover:border-white/25 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember sm:gap-1.5 sm:px-3 sm:py-1.5 sm:text-[10px] sm:tracking-widest"
           >
             <BookOpen size={12} />
             <span className="hidden sm:inline">Methodology</span>
