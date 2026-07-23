@@ -49,35 +49,62 @@ export type LayerFlags = {
   context: boolean;
 };
 
+/**
+ * Vintage field-symbol family — a coherent print-map set on cream:
+ *  - precision "exact"       → filled dot in an ink stamp (Sun Valley "•")
+ *  - precision "site-center" → square plate, rotated 45° (a printed lozenge)
+ *  - precision "region-ish"  → open circle with dashed ink halo (approximate)
+ * Selected: vermilion body, ink hairline, and a printed offset echo behind
+ * the plate — no glow, no drop shadow, no glassmorphism.
+ *
+ * `color` is the category color from CATEGORY_META and is preserved so
+ * category legend semantics stay intact.
+ */
 function markerIcon(
   color: string,
   active: boolean,
   precision: Waypoint["precision"],
-  basemap: Basemap,
+  _basemap: Basemap,
 ) {
-  const size = active ? 26 : 18;
-  // On the light basemap, plain white ring vanishes against pale terrain — swap in a dark spruce hairline.
-  const idleRing = basemap === "light" ? "rgba(15,32,28,0.75)" : "rgba(255,255,255,0.55)";
-  const ring = active ? "var(--ember)" : idleRing;
-  const isExact = precision === "exact";
-  const shape = isExact
-    ? `border-radius:9999px;`
-    : precision === "site-center"
-    ? `border-radius:4px;transform:rotate(45deg);`
-    : `border-radius:9999px;border:2px dashed rgba(255,255,255,0.75);`;
-  const inner = isExact
-    ? `<div style="width:${Math.round(size / 3)}px;height:${Math.round(size / 3)}px;border-radius:9999px;background:rgba(255,255,255,0.95);"></div>`
+  const size = active ? 22 : 16;
+  const fill = active ? "var(--vermilion)" : color;
+  const stroke = "var(--ink)";
+  const strokeW = active ? 1.6 : 1.1;
+  // Print-offset echo (drawn behind the mark) — small vermilion square offset.
+  const echo = active
+    ? `<rect x="1" y="1" width="${size - 2}" height="${size - 2}" fill="var(--vermilion)" opacity="0.32"/>`
     : "";
-  const activeShadow = active
-    ? `,0 0 0 5px color-mix(in oklab, var(--ember) 45%, transparent)`
-    : "";
-  const html = `<div style="width:${size}px;height:${size}px;background:${color};box-shadow:0 0 0 2px ${ring}${activeShadow},0 2px 8px rgba(0,0,0,0.5);display:grid;place-items:center;${shape}">${inner}</div>`;
-  return L.divIcon({ html, className: "", iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
+  let mark = "";
+  if (precision === "exact") {
+    const r = size / 2 - 2;
+    mark = `<circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeW}"/>
+            <circle cx="${size / 2}" cy="${size / 2}" r="${Math.max(1.4, r / 3)}" fill="var(--paper)"/>`;
+  } else if (precision === "site-center") {
+    const half = size / 2;
+    const inset = 2.5;
+    // Rotated square plate (lozenge)
+    mark = `<g transform="rotate(45 ${half} ${half})">
+              <rect x="${inset}" y="${inset}" width="${size - inset * 2}" height="${size - inset * 2}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeW}"/>
+            </g>`;
+  } else {
+    const r = size / 2 - 2;
+    mark = `<circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="var(--paper)" stroke="${fill}" stroke-width="${strokeW + 0.2}" stroke-dasharray="2.4 1.8"/>
+            <circle cx="${size / 2}" cy="${size / 2}" r="1.4" fill="${fill}"/>`;
+  }
+  const html = `<svg xmlns="http://www.w3.org/2000/svg" width="${size + 2}" height="${size + 2}" viewBox="0 0 ${size + 2} ${size + 2}" style="overflow:visible;">${echo}<g transform="translate(1 1)">${mark}</g></svg>`;
+  return L.divIcon({ html, className: "", iconSize: [size + 2, size + 2], iconAnchor: [(size + 2) / 2, (size + 2) / 2] });
 }
 
+/** Imported waypoint mark — vermilion cross-target on cream paper. */
 function importedIcon() {
-  const html = `<div style="width:16px;height:16px;border-radius:9999px;background:var(--ember);box-shadow:0 0 0 2px rgba(255,255,255,0.85),0 2px 6px rgba(0,0,0,0.5);"></div>`;
-  return L.divIcon({ html, className: "", iconSize: [16, 16], iconAnchor: [8, 8] });
+  const size = 16;
+  const html = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle cx="8" cy="8" r="6" fill="var(--paper)" stroke="var(--vermilion)" stroke-width="1.4"/>
+    <line x1="8" y1="1" x2="8" y2="15" stroke="var(--vermilion)" stroke-width="1"/>
+    <line x1="1" y1="8" x2="15" y2="8" stroke="var(--vermilion)" stroke-width="1"/>
+    <circle cx="8" cy="8" r="1.6" fill="var(--vermilion)"/>
+  </svg>`;
+  return L.divIcon({ html, className: "", iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
 }
 
 function FitToWaypoints({
@@ -303,7 +330,7 @@ export default function IdahoMapClient({
       minZoom={5}
       maxZoom={14}
       className="h-full w-full"
-      style={{ background: "var(--spruce-deep)" }}
+      style={{ background: "var(--paper)" }}
       zoomControl={false}
       attributionControl={true}
     >

@@ -58,7 +58,7 @@ test("rejects invalid mode via fallback", () => {
 
 test("rejects invalid basemap via fallback", () => {
   const parsed = idahoSearchSchema.parse({ basemap: "satellite" });
-  assert(parsed.basemap === "dark", `basemap fallback failed: ${parsed.basemap}`);
+  assert(parsed.basemap === "light", `basemap fallback failed: ${parsed.basemap}`);
 });
 
 test("accepts full search state", () => {

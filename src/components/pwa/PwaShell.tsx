@@ -51,11 +51,11 @@ export function PwaShell() {
       <div
         aria-live="polite"
         data-testid="pwa-status"
-        className="pointer-events-none fixed z-[1200] flex items-center gap-2 rounded-full border border-white/10 bg-spruce-deep/85 px-2.5 py-1 font-field text-[10px] uppercase tracking-widest text-mineral backdrop-blur right-3 top-[3.75rem] md:right-auto md:top-auto md:left-3 md:bottom-3"
+        className="pointer-events-none fixed z-[1200] flex items-center gap-2 border border-[var(--ink)] bg-[var(--paper)] px-2.5 py-1 font-field text-[10px] uppercase tracking-[0.24em] text-[var(--ink)] shadow-[2px_2px_0_0_var(--vermilion)] right-3 top-[3.75rem] md:right-auto md:top-auto md:left-3 md:bottom-3"
       >
         <span
-          className={`h-1.5 w-1.5 rounded-full ${
-            online === "offline" ? "bg-ember" : "bg-lichen"
+          className={`h-1.5 w-1.5 ${
+            online === "offline" ? "bg-[var(--vermilion)]" : "bg-[var(--pine)]"
           }`}
           aria-hidden="true"
         />
@@ -66,15 +66,15 @@ export function PwaShell() {
       {showOffline ? (
         <div
           role="status"
-          className="fixed left-1/2 top-[3.5rem] z-[1300] w-[min(94vw,520px)] -translate-x-1/2 rounded-lg border border-ember/40 bg-spruce-deep/95 p-3 text-bone shadow-lg backdrop-blur md:top-3"
+          className="fixed left-1/2 top-[3.5rem] z-[1300] w-[min(94vw,520px)] -translate-x-1/2 border border-[var(--vermilion)] bg-[var(--paper)] p-3 text-[var(--ink)] shadow-[3px_3px_0_0_var(--ink)] md:top-3"
         >
           <div className="flex items-start gap-3">
-            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-ember" aria-hidden="true" />
+            <div className="mt-1 h-2 w-2 shrink-0 bg-[var(--vermilion)]" aria-hidden="true" />
             <div className="min-w-0 text-sm">
-              <div className="font-field text-[11px] uppercase tracking-widest text-mineral">
-                Offline
+              <div className="font-field text-[10px] uppercase tracking-[0.3em] text-[var(--vermilion)]">
+                — Telegram · Offline —
               </div>
-              <p className="mt-1 leading-snug text-bone/90">
+              <p className="mt-1 font-editorial leading-snug text-[var(--ink)]">
                 The app shell, bundled datasets, imported GPX, and your Field Kit stay
                 available. Third-party basemap tiles will not load offline. The
                 Landscape Inventory is blocked upstream until a valid checked-in
@@ -83,7 +83,7 @@ export function PwaShell() {
               <button
                 type="button"
                 onClick={() => setDismissedOffline(true)}
-                className="mt-2 rounded border border-white/15 px-2 py-1 font-field text-[10px] uppercase tracking-widest text-bone/80 hover:bg-white/5"
+                className="mt-2 border border-[var(--ink)] bg-[var(--paper)] px-2 py-1 font-field text-[10px] uppercase tracking-[0.24em] text-[var(--ink)] hover:bg-[var(--paper-deep)]"
               >
                 Dismiss
               </button>
@@ -96,12 +96,12 @@ export function PwaShell() {
         <div
           role="dialog"
           aria-label="Update available"
-          className="fixed right-3 bottom-3 z-[70] w-[min(94vw,360px)] rounded-lg border border-lichen/40 bg-spruce-deep/95 p-3 text-bone shadow-lg backdrop-blur"
+          className="fixed right-3 bottom-3 z-[70] w-[min(94vw,360px)] border border-[var(--vermilion)] bg-[var(--paper)] p-3 text-[var(--ink)] shadow-[3px_3px_0_0_var(--ink)]"
         >
-          <div className="font-field text-[11px] uppercase tracking-widest text-mineral">
-            Update ready
+          <div className="font-field text-[10px] uppercase tracking-[0.3em] text-[var(--vermilion)]">
+            — Wire · New Edition Ready —
           </div>
-          <p className="mt-1 text-sm leading-snug text-bone/90">
+          <p className="mt-1 font-editorial text-sm leading-snug text-[var(--ink)]">
             A new version of Forest Atlas is ready. Reload to apply — unsaved local edits
             in your Field Kit are stored in this browser and will remain after reload.
           </p>
@@ -109,14 +109,14 @@ export function PwaShell() {
             <button
               type="button"
               onClick={() => pwa.activate()}
-              className="rounded border border-lichen/60 bg-lichen/10 px-2 py-1 font-field text-[10px] uppercase tracking-widest text-bone hover:bg-lichen/20"
+              className="border border-[var(--vermilion-deep)] bg-[var(--vermilion)] px-2 py-1 font-field text-[10px] uppercase tracking-[0.24em] text-[var(--paper)] shadow-[2px_2px_0_0_var(--ink)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_var(--ink)]"
             >
               Reload
             </button>
             <button
               type="button"
               onClick={() => setDismissedUpdate(true)}
-              className="rounded border border-white/15 px-2 py-1 font-field text-[10px] uppercase tracking-widest text-bone/80 hover:bg-white/5"
+              className="border border-[var(--ink)] bg-[var(--paper)] px-2 py-1 font-field text-[10px] uppercase tracking-[0.24em] text-[var(--ink)] hover:bg-[var(--paper-deep)]"
             >
               Later
             </button>
