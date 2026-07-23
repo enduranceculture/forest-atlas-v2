@@ -300,7 +300,7 @@ test("share URL strips defaults for canonical form", () => {
       prec: "",
       src: "",
       hide: "",
-      basemap: "dark",
+      basemap: "light",
       c: "",
       col: "",
       ninec: "",
