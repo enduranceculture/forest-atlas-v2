@@ -1,0 +1,216 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Forest Atlas · West — design system.
+ * Modern natural-history field guide. Dark spruce ground, bone type,
+ * mineral gray structure, muted lichen accent, restrained ember CTAs.
+ * All colors in oklch.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Forest Atlas brand tokens */
+  --color-spruce: var(--spruce);
+  --color-spruce-deep: var(--spruce-deep);
+  --color-spruce-soft: var(--spruce-soft);
+  --color-bone: var(--bone);
+  --color-bone-dim: var(--bone-dim);
+  --color-mineral: var(--mineral);
+  --color-mineral-soft: var(--mineral-soft);
+  --color-lichen: var(--lichen);
+  --color-ember: var(--ember);
+  --color-ember-soft: var(--ember-soft);
+
+  /* 9-class forest density ramp (pale → deep old-growth) */
+  --color-density-1: var(--density-1);
+  --color-density-2: var(--density-2);
+  --color-density-3: var(--density-3);
+  --color-density-4: var(--density-4);
+  --color-density-5: var(--density-5);
+  --color-density-6: var(--density-6);
+  --color-density-7: var(--density-7);
+  --color-density-8: var(--density-8);
+  --color-density-9: var(--density-9);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Brand ramp */
+  --spruce-deep: oklch(0.16 0.018 160);
+  --spruce: oklch(0.20 0.020 160);
+  --spruce-soft: oklch(0.26 0.022 160);
+  --bone: oklch(0.955 0.012 85);
+  --bone-dim: oklch(0.86 0.014 85);
+  --mineral: oklch(0.62 0.010 240);
+  --mineral-soft: oklch(0.42 0.012 220);
+  --lichen: oklch(0.72 0.055 135);
+  --ember: oklch(0.68 0.155 45);
+  --ember-soft: oklch(0.78 0.100 55);
+
+  /* 9-step forest density (perceptual green ramp on dark ground) */
+  --density-1: oklch(0.34 0.028 145);
+  --density-2: oklch(0.38 0.038 145);
+  --density-3: oklch(0.42 0.048 145);
+  --density-4: oklch(0.46 0.058 145);
+  --density-5: oklch(0.50 0.070 145);
+  --density-6: oklch(0.54 0.082 148);
+  --density-7: oklch(0.58 0.092 150);
+  --density-8: oklch(0.62 0.100 152);
+  --density-9: oklch(0.68 0.110 155);
+
+  /* Semantic mapping — dark by default (atlas is inherently a dark canvas) */
+  --background: var(--spruce-deep);
+  --foreground: var(--bone);
+  --card: var(--spruce);
+  --card-foreground: var(--bone);
+  --popover: var(--spruce);
+  --popover-foreground: var(--bone);
+  --primary: var(--ember);
+  --primary-foreground: oklch(0.15 0.02 45);
+  --secondary: var(--spruce-soft);
+  --secondary-foreground: var(--bone);
+  --muted: var(--spruce-soft);
+  --muted-foreground: var(--mineral);
+  --accent: var(--lichen);
+  --accent-foreground: var(--spruce-deep);
+  --destructive: oklch(0.62 0.20 25);
+  --destructive-foreground: var(--bone);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: var(--ember);
+  --chart-1: var(--density-3);
+  --chart-2: var(--density-5);
+  --chart-3: var(--density-7);
+  --chart-4: var(--density-9);
+  --chart-5: var(--ember);
+  --sidebar: var(--spruce);
+  --sidebar-foreground: var(--bone);
+  --sidebar-primary: var(--ember);
+  --sidebar-primary-foreground: oklch(0.15 0.02 45);
+  --sidebar-accent: var(--spruce-soft);
+  --sidebar-accent-foreground: var(--bone);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: var(--ember);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility font-editorial {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 30, "WONK" 0;
+}
+
+@utility font-field {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+}
+
+/* ---------------------------------------------------------------------------
+ * Leaflet overrides — Forest Atlas
+ * Replace default browser focus outlines on markers with our ember focus ring,
+ * keep attribution/scale legible over both dark and light basemaps, and let
+ * the mobile bottom sheet push attribution + scale above its top edge.
+ * ------------------------------------------------------------------------- */
+.leaflet-container a.leaflet-popup-close-button:focus,
+.leaflet-container .leaflet-marker-icon:focus,
+.leaflet-container .leaflet-marker-icon:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--spruce-deep), 0 0 0 4px var(--ember) !important;
+  border-radius: 9999px;
+}
+.leaflet-container .leaflet-control-attribution {
+  background: color-mix(in oklab, var(--spruce-deep) 78%, transparent);
+  color: var(--bone-dim);
+  padding: 2px 6px;
+  border-radius: 6px 0 0 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+.leaflet-container .leaflet-control-attribution a {
+  color: var(--ember-soft);
+}
+.leaflet-container .leaflet-control-scale-line {
+  background: color-mix(in oklab, var(--spruce-deep) 78%, transparent);
+  color: var(--bone);
+  border-color: color-mix(in oklab, var(--bone) 45%, transparent);
+}
+/* Mobile sheet-aware offset for bottom-left/right leaflet controls.
+ * `--sheet-offset` is set inline on the map wrapper from the current snap. */
+@media (max-width: 768px) {
+  .leaflet-container .leaflet-bottom.leaflet-left,
+  .leaflet-container .leaflet-bottom.leaflet-right {
+    bottom: calc(var(--sheet-offset, 22vh) + 8px);
+  }
+  .map-action-buttons {
+    bottom: calc(var(--sheet-offset, 22vh) + 12px) !important;
+  }
+}

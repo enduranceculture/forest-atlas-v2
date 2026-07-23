@@ -1,0 +1,1 @@
+{"_status":"SYNC_BLOCKED","reason":"USDA MapServer/29 returned HTTP 200 {error:{code:400,message:\"Failed to execute query.\"}} on every spatial and returnIdsOnly query at sync time. Non-spatial where=1=1 count returned 2192, so the service is up but rejecting spatial + ids-only requests. Snapshot NOT finalized per instructions."}

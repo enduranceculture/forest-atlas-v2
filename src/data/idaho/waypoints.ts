@@ -1,0 +1,150 @@
+// FIXTURE — Idaho waypoint seed. All coordinates are hand-authored placeholder
+// points bundled with the app for V1 preview. Nothing here is surveyed, and no
+// authoritative capture date, source URL, or precision claim is attached.
+//
+// Precision labels used below:
+//   `approximate`  — a rough placeholder point somewhere near the named feature;
+//                    accuracyMeters is a fixture uncertainty estimate, NOT a measurement.
+//   `site-center`  — a rough centroid representing a broader area (stand, corridor,
+//                    interpretive site); accuracyMeters is a fixture uncertainty estimate.
+// `exact` is intentionally NOT used: the bundled repository does not contain any
+// documented/surveyed coordinate to back that classification.
+import type { Waypoint } from "../schema";
+
+const FIXTURE_SOURCE_NAME = "Bundled fixture — placeholder data (not surveyed)";
+const fixtureId = (id: string) => `fixture-${id}`;
+
+export const IDAHO_WAYPOINTS: Waypoint[] = [
+  {
+    id: "upper-priest-cedar",
+    name: "Champion Western Red Cedar (area)",
+    latitude: 48.7461,
+    longitude: -116.9051,
+    region: "Upper Priest River, Panhandle NF",
+    category: "Old-growth",
+    species: "Thuja plicata",
+    significance:
+      "Placeholder marker for the Upper Priest western red cedar grove — an area historically noted for very large Thuja plicata in the Inland Northwest.",
+    access: "Upper Priest Lake trailhead area; multi-mile hike on Navigation Trail. Snowbound in winter.",
+    confidence: "Medium",
+    precision: "approximate",
+    geometryType: "point",
+    accuracyMeters: 500,
+    sourceType: "fixture",
+    sourceName: FIXTURE_SOURCE_NAME,
+    sourceUrl: null,
+    sourceId: fixtureId("upper-priest-cedar"),
+    captureDate: null,
+    notes: "Fixture uncertainty estimate (~500 m); not a measured accuracy. Coordinate is hand-placed near the general grove area.",
+  },
+  {
+    id: "basin-gulch-limber",
+    name: "Ancient Limber Pines, Basin Gulch (area)",
+    latitude: 43.771,
+    longitude: -114.152,
+    region: "Trail Creek, Sawtooth NRA",
+    category: "Old-growth",
+    species: "Pinus flexilis",
+    significance:
+      "Placeholder marker for a wind-exposed limber pine zone along the Trail Creek / Basin Gulch benches.",
+    access: "Trail Creek Road corridor past Basin Gulch; off-trail scramble. Road closed by snow late fall.",
+    confidence: "Medium",
+    precision: "site-center",
+    geometryType: "area",
+    accuracyMeters: 1500,
+    sourceType: "fixture",
+    sourceName: FIXTURE_SOURCE_NAME,
+    sourceUrl: null,
+    sourceId: fixtureId("basin-gulch-limber"),
+    captureDate: null,
+    notes: "Fixture uncertainty estimate (~1.5 km); represents an area, not a specific tree or stand.",
+  },
+  {
+    id: "priest-lake-rainforest",
+    name: "North Idaho Inland Rainforest (area)",
+    latitude: 48.581,
+    longitude: -116.926,
+    region: "Priest Lake, Panhandle NF",
+    category: "Ecological",
+    species: "Thuja plicata / Tsuga heterophylla",
+    significance:
+      "Placeholder marker inside the North Idaho inland temperate rainforest — a rare interior forest type dominated by cedar and hemlock.",
+    access: "Priest Lake area; several interpretive cedar groves and forest roads in the vicinity.",
+    confidence: "Medium",
+    precision: "site-center",
+    geometryType: "area",
+    accuracyMeters: 2000,
+    sourceType: "fixture",
+    sourceName: FIXTURE_SOURCE_NAME,
+    sourceUrl: null,
+    sourceId: fixtureId("priest-lake-rainforest"),
+    captureDate: null,
+    notes: "Fixture uncertainty estimate (~2 km); represents the broader inland rainforest zone, not a specific grove.",
+  },
+  {
+    id: "sawtooth-whitebark",
+    name: "Sawtooth Whitebark Pine Context Area",
+    latitude: 43.935,
+    longitude: -114.926,
+    region: "Galena Summit, Sawtooth NRA",
+    category: "Ecological",
+    species: "Pinus albicaulis",
+    significance:
+      "Context marker for high-elevation whitebark pine communities of the Sawtooth headwaters — a keystone subalpine species under stress from blister rust and warming.",
+    access: "Galena Summit area off ID-75. Best snow-free window is summer.",
+    confidence: "Low",
+    precision: "site-center",
+    geometryType: "area",
+    accuracyMeters: 2500,
+    sourceType: "fixture",
+    sourceName: FIXTURE_SOURCE_NAME,
+    sourceUrl: null,
+    sourceId: fixtureId("sawtooth-whitebark"),
+    captureDate: null,
+    notes: "Fixture uncertainty estimate (~2.5 km); representative of a subalpine zone, not a specific stand.",
+  },
+  {
+    id: "kelly-creek-riparian",
+    name: "Kelly Creek Cedar-Hemlock Riparian (area)",
+    latitude: 46.581,
+    longitude: -115.021,
+    region: "Clearwater NF, North Fork",
+    category: "Riparian",
+    species: "Thuja plicata / Tsuga heterophylla",
+    significance:
+      "Placeholder marker for the Kelly Creek riparian corridor — a cedar/hemlock stream drainage in the North Fork Clearwater country.",
+    access: "Kelly Forks area via forest road; Kelly Creek Trail upstream.",
+    confidence: "Medium",
+    precision: "approximate",
+    geometryType: "line",
+    accuracyMeters: 1000,
+    sourceType: "fixture",
+    sourceName: FIXTURE_SOURCE_NAME,
+    sourceUrl: null,
+    sourceId: fixtureId("kelly-creek-riparian"),
+    captureDate: null,
+    notes: "Fixture uncertainty estimate (~1 km); the actual feature is a linear corridor, only a single anchor point is stored.",
+  },
+  {
+    id: "weippe-camas",
+    name: "Weippe Prairie Cultural Forest Edge (area)",
+    latitude: 46.3776,
+    longitude: -115.937,
+    region: "Clearwater Country, Nez Perce (Niimíipuu) homeland",
+    category: "Cultural",
+    species: "Camassia quamash / Pinus ponderosa (edge)",
+    significance:
+      "Placeholder marker for the Weippe Prairie area — traditional Nez Perce camas grounds framed by mature ponderosa; a culturally significant landscape in Niimíipuu homeland.",
+    access: "Weippe Prairie area, off ID-11.",
+    confidence: "Medium",
+    precision: "approximate",
+    geometryType: "point",
+    accuracyMeters: 500,
+    sourceType: "fixture",
+    sourceName: FIXTURE_SOURCE_NAME,
+    sourceUrl: null,
+    sourceId: fixtureId("weippe-camas"),
+    captureDate: null,
+    notes: "Fixture uncertainty estimate (~500 m); hand-placed near the general prairie area, not an interpretive-kiosk survey coordinate.",
+  },
+];
